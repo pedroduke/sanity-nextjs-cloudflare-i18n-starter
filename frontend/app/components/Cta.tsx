@@ -9,7 +9,6 @@ import { ExtractPageBuilderType } from '@/sanity/lib/types'
 type CtaProps = {
   block: ExtractPageBuilderType<'callToAction'>
   index: number
-  // Needed if you want to createDataAttributes to do non-text overlays in Presentation (Visual Editing)
   pageType: string
   pageId: string
 }
@@ -20,38 +19,45 @@ export const CTA = ({ block }: CtaProps) => {
   const isDark = theme === 'dark'
   const isImageFirst = stegaClean(contentAlignment) === 'imageFirst'
 
+  const sectionClass = isDark
+    ? 'bg-gray-950 text-gray-50'
+    : 'bg-gray-50 border-t border-b border-gray-200'
+  const eyebrowClass = isDark ? 'text-gray-400' : 'text-gray-600'
+  const headingClass = isDark ? 'text-gray-50' : 'text-gray-950'
+
   return (
-    <section className="relative border-t border-b border-gray-600">
-      <div className="absolute inset-0 bg-size-[5px] opacity-25" />
-      <div className="container relative">
-        <div className="grid lg:grid-cols-2 gap-12 py-12">
+    <section className={`relative ${sectionClass}`}>
+      <div className="container py-10 md:py-12 lg:py-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div
-            className={`${isImageFirst && image ? 'row-start-2 lg:row-start-1 lg:col-start-2' : ''} flex flex-col gap-2 `}
+            className={`${
+              isImageFirst && image ? 'row-start-2 lg:row-start-1 lg:col-start-2' : ''
+            } flex flex-col gap-3`}
           >
             {eyebrow && (
-              <span className="text-sm dark:text-white font-mono tracking-tight opacity-70">
+              <span className={`font-mono text-sm tracking-tight opacity-70 ${eyebrowClass}`}>
                 // {eyebrow}
               </span>
             )}
             {heading && (
-              <h2 className="text-2xl md:text-3xl lg:text-4xl dark:text-white">{heading}</h2>
+              <h2 className={`text-2xl md:text-3xl lg:text-4xl font-semibold ${headingClass}`}>
+                {heading}
+              </h2>
             )}
             {body && (
-              <div className="lg:text-left">
-                <CustomPortableText
-                  value={body as PortableTextBlock[]}
-                  className="dark:prose-invert"
-                />
-              </div>
+              <CustomPortableText
+                value={body as PortableTextBlock[]}
+                className={isDark ? 'prose-invert' : ''}
+              />
             )}
 
             {button?.buttonText && button?.link && (
               <div className="flex mt-4">
                 <ResolvedLink
-                  link={button?.link}
-                  className="rounded-full flex gap-2 font-mono text-sm whitespace-nowrap items-center bg-brand hover:bg-brand/80 focus:bg-brand py-3 px-6 text-gray-50 hover:text-gray-50/80 focus:text-gray-50/80 transition-colors duration-200"
+                  link={button.link}
+                  className="inline-flex items-center gap-2 bg-brand text-white font-mono text-sm font-semibold rounded px-5 py-3 hover:bg-brand/90 transition-colors"
                 >
-                  {button?.buttonText}
+                  {button.buttonText}
                 </ResolvedLink>
               </div>
             )}
@@ -64,7 +70,7 @@ export const CTA = ({ block }: CtaProps) => {
               width={704}
               crop={image.crop}
               mode="cover"
-              className="rounded-sm"
+              className="rounded-md"
             />
           )}
         </div>

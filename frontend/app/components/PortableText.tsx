@@ -102,7 +102,7 @@ export const CustomPortableText = ({
   }
 
   return (
-    <div className={`prose-a:text-brand prose dark:prose-invert ${className}`}>
+    <div className={`prose-a:text-brand prose ${className}`}>
       <PortableText components={components} value={value} />
     </div>
   )

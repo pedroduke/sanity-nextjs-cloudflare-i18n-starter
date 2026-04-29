@@ -1,34 +1,44 @@
 import { ArrowRight, Github } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 import { StatChips } from './StatChips'
 import { Terminal } from './Terminal'
 
-export const HeroSection = () => {
+export const HeroSection = async () => {
+  const t = await getTranslations('HeroSection')
   return (
-    <section className="bg-[#14151f] border-b border-gray-800">
-      <div className="container px-12 py-20 xl:py-28">
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-center">
+    <section className="bg-gray-50 pb-16 md:pb-20 xl:pb-28 pt-12 md:pt-16 lg:pt-20 ">
+      <div className="container">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-16 items-center">
           {/* Left */}
-          <div className="flex flex-col gap-6">
-            <span className="inline-block font-mono text-xs text-gray-400 bg-gray-800 border border-gray-600 rounded px-3 py-1 w-fit">
-              Sanity · Next.js · Cloudflare
-            </span>
-            <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-gray-50 leading-[1.1]">
-              A starter template for Sanity, Next.js, and Cloudflare.
+          <div className="flex flex-col gap-7">
+            {/* Tag chip */}
+            <div className="inline-flex items-center gap-1.5 bg-gray-100 border border-gray-200 rounded-[3px] px-3 py-[5px] w-fit">
+              <span className="font-mono text-xs text-gray-700">{t('tagChip')}</span>
+            </div>
+
+            {/* H1 */}
+            <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-gray-950 leading-[1.1] max-w-[660px]">
+              {t('headingLine1')}
+              <br />
+              {t('headingLine2')}
             </h1>
-            <div className="w-16 h-0.5 bg-brand rounded" />
-            <p className="text-xl text-gray-400 leading-relaxed max-w-lg">
-              A scalable starter template combining Sanity CMS, Next.js, and Cloudflare for building
-              high-performance, content-first web applications.
-            </p>
-            <div className="flex items-center gap-3 flex-wrap">
+
+            {/* Accent bar */}
+            <div className="w-20 h-[3px] bg-brand rounded-[1px]" />
+
+            {/* Body */}
+            <p className="text-xl text-gray-700 leading-relaxed max-w-lg">{t('body')}</p>
+
+            {/* CTA row */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
-                href="https://github.com/pedroduke/sanity-nextjs-cloudflare-starter"
+                href="https://github.com/pedroduke/sanity-nextjs-cloudflare-i18n-starter"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-gray-800 border border-gray-600 text-gray-400 font-mono text-sm rounded px-4 py-2.5 hover:text-gray-50 hover:border-gray-500 transition-all"
+                className="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-950 font-mono text-sm rounded px-5 py-3 hover:bg-gray-100 transition-colors"
               >
-                <Github size={15} />
-                View on GitHub
+                <Github size={14} />
+                {t('ctaSecondary')}
               </a>
               <a
                 href="https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/"
@@ -36,14 +46,14 @@ export const HeroSection = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-brand text-white font-mono text-sm font-semibold rounded px-4 py-2.5 hover:bg-orange-600 transition-colors"
               >
-                Cloudflare docs
+                {t('ctaPrimary')}
                 <ArrowRight size={13} />
               </a>
             </div>
           </div>
 
-          {/* Right — terminal */}
-          <div className="hidden xl:block">
+          {/* Right */}
+          <div className="hidden xl:flex flex-col gap-4">
             <Terminal />
             <StatChips />
           </div>

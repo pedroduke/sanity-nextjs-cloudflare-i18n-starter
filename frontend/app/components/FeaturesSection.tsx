@@ -1,54 +1,48 @@
-export const FeaturesSection = () => {
+import { Code, Eye, FileText, Languages, LayoutGrid, Terminal } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
+
+type FeatureKey = 'pageBuilder' | 'nextIntl' | 'tinloofI18n' | 'preview' | 'deploy' | 'typescript'
+
+const featureMeta: { key: FeatureKey; Icon: LucideIcon }[] = [
+  { key: 'pageBuilder', Icon: LayoutGrid },
+  { key: 'nextIntl', Icon: Languages },
+  { key: 'tinloofI18n', Icon: FileText },
+  { key: 'preview', Icon: Eye },
+  { key: 'deploy', Icon: Terminal },
+  { key: 'typescript', Icon: Code },
+]
+
+export const FeaturesSection = async () => {
+  const t = await getTranslations('FeaturesSection')
+
   return (
-    <section className="bg-[#1a1c27] border-t border-b border-gray-600">
-      <div className="container px-12 py-16">
-        <div className="mb-10">
-          <p className="text-xs font-mono text-gray-400 mb-2">// features</p>
-          <h2 className="text-3xl font-semibold text-gray-50">Built to be extended.</h2>
+    <section className="bg-gray-100 py-12 md:py-16 lg:py-[72px]">
+      <div className="container">
+        {/* Header */}
+        <div className="flex flex-col gap-2.5 mb-10">
+          <p className="font-mono text-xs text-gray-600">{t('eyebrow')}</p>
+          <h2 className="text-3xl font-semibold text-gray-950">{t('heading')}</h2>
+          <p className="text-lg text-gray-700 leading-relaxed max-w-lg">{t('body')}</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-            {
-              title: 'Page builder',
-              body: 'Compose pages from reusable content blocks defined in your Sanity schema. Add new section types without touching layout code.',
-              icon: '▦',
-              iconColor: 'text-brand',
-            },
-            {
-              title: 'Live preview & draft mode',
-              body: 'Edit in Sanity Studio and see changes reflected instantly in a preview of your live site before publishing.',
-              iconBorder: 'border-gray-600',
-              icon: '◎',
-              iconColor: 'text-brand',
-            },
-            {
-              title: 'One-command deploy',
-              body: 'Run pnpm run deploy and your site is live globally. No platform dashboard required.',
-              iconBorder: 'border-gray-600',
-              icon: '>_',
-              iconColor: 'text-brand',
-            },
-            {
-              title: 'TypeScript end-to-end',
-              body: 'Types generated from your Sanity schema flow through to your components. No type mismatches between content and UI.',
-              iconBorder: 'border-gray-600',
-              icon: '{}',
-              iconColor: 'text-brand',
-            },
-          ].map(feat => (
-            <div
-              key={feat.title}
-              className="flex flex-col gap-4 p-7 bg-[#1e2030] border border-gray-600 rounded-md"
-            >
+
+        {/* Grid: 2 rows × 3 cols */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {featureMeta.map((feat) => {
+            const Icon = feat.Icon
+            return (
               <div
-                className={`w-8 h-8 flex items-center justify-center rounded bg-[#252837] border border-brand font-mono text-xs ${feat.iconColor}`}
+                key={feat.key}
+                className="flex flex-col gap-4 p-7 bg-white border border-gray-200 rounded-lg"
               >
-                {feat.icon}
+                <div className="w-9 h-9 flex items-center justify-center rounded-md border border-brand">
+                  <Icon size={18} className="text-brand" />
+                </div>
+                <p className="text-lg font-mono font-semibold text-gray-950">{t(`items.${feat.key}.title`)}</p>
+                <p className="text-base text-gray-700 leading-relaxed">{t(`items.${feat.key}.body`)}</p>
               </div>
-              <p className="text-lg font-mono font-semibold text-gray-50">{feat.title}</p>
-              <p className="text-md text-gray-400 leading-relaxed">{feat.body}</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

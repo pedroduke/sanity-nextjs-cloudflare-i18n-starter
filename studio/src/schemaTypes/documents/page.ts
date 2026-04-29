@@ -2,6 +2,9 @@ import { defineField, defineType } from 'sanity'
 import { DocumentIcon } from '@sanity/icons'
 import { definePathname } from '@tinloof/sanity-studio'
 
+const PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
+const DEFAULT_LOCALE_ID = 'en'
+
 export const page = defineType({
   name: 'page',
   title: 'Page',
@@ -16,8 +19,12 @@ export const page = defineType({
     }),
     definePathname({
       name: 'pathname',
+      description: `Pages are single-locale; this URL is rendered under every locale prefix on the frontend.`,
       options: {
         source: 'name',
+        // Single-locale doc: prefix with the default locale so the URL preview
+        // points at the actual rendered URL on the frontend.
+        prefix: `${PREVIEW_URL}/${DEFAULT_LOCALE_ID}`,
         autoNavigate: true,
       },
     }),

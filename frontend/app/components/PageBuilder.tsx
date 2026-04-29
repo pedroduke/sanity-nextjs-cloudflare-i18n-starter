@@ -67,9 +67,9 @@ function RenderEmptyState({ page }: { page: GetPageQueryResult }) {
         path: `pageBuilder`,
       }).toString()}
     >
-      <div className="prose text-gray-50 border border-gray-600 rounded-md p-12 flex flex-col items-center justify-center w-full bg-[#1e2030]">
-        <h2 className="text-gray-50">This page has no content!</h2>
-        <p className="">Open the page in Sanity Studio to add content.</p>
+      <div className="prose border border-gray-200 rounded-md p-12 flex flex-col items-center justify-center w-full bg-white">
+        <h2 className="text-gray-500">This page has no content!</h2>
+        <p className="text-gray-700">Open the page in Sanity Studio to add content.</p>
       </div>
     </div>
   )

@@ -1,19 +1,20 @@
-# Next.js + Sanity + Cloudflare Starter
+# Next.js + Sanity + Cloudflare + i18n Starter
 
-A production-ready website starter combining [Next.js](https://nextjs.org/) 16, [Sanity](https://www.sanity.io/) CMS with Visual Editing, and deployment to [Cloudflare Workers](https://workers.cloudflare.com/) via [OpenNext](https://opennext.js.org/cloudflare).
+A production-ready website starter combining [Next.js](https://nextjs.org/) 16, [Sanity](https://www.sanity.io/) CMS with Visual Editing and built-in internationalization support, and deployment to [Cloudflare Workers](https://workers.cloudflare.com/) via [OpenNext](https://opennext.js.org/cloudflare).
 
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](/preview.png)
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/pedroduke/sanity-nextjs-cloudflare-starter)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/pedroduke/sanity-nextjs-cloudflare-i18n-starter)
 
 > **Note:** After clicking the deploy button, you still need to configure environment variables in your Cloudflare dashboard (see [Environment Variables](#environment-variables)).
 
 ## Demo
-https://sanity-next-cloudflare-starter.pedroduque8.workers.dev/
+https://sanity-next-cloudflare-i18n-starter.pedroduque8.workers.dev/
 
 ## Features
 
 - **Next.js 16 App Router** — Static site generation with incremental revalidation
+- **i18n out of the box** — Three locales (`en`/`pt`/`pl`) with [`next-intl`](https://next-intl.dev) for UI and [`@tinloof/sanity-document-i18n`](https://www.npmjs.com/package/@tinloof/sanity-document-i18n) for translatable blog posts. Locale-prefixed URLs (`/en`, `/pt`, `/pl`), per-locale slugs, `<link rel="alternate" hreflang>` everywhere
 - **Sanity Visual Editing** — Live preview with the [Pages navigator](https://www.npmjs.com/package/@tinloof/sanity-studio) and real-time [Live Content API](https://www.sanity.io/live)
 - **Cloudflare Workers** — Edge deployment powered by [OpenNext for Cloudflare](https://opennext.js.org/cloudflare)
 - **Page Builder** — Drag-and-drop page sections with Visual Editing support
@@ -36,7 +37,7 @@ https://sanity-next-cloudflare-starter.pedroduque8.workers.dev/
 ### 1. Clone and install
 
 ```bash
-npx degit pedroduke/sanity-nextjs-cloudflare-starter my-site
+npx degit pedroduke/sanity-nextjs-cloudflare-i18n-starter my-site
 cd my-site
 pnpm install
 ```
@@ -135,6 +136,51 @@ cd frontend
 wrangler secret put SANITY_API_READ_TOKEN
 ```
 
+## Internationalization
+
+This template ships with three locales: **English** (`en`, default), **Portuguese** (`pt`), **Polish** (`pl`). All public URLs are locale-prefixed (`/en/...`, `/pt/...`, `/pl/...`); a request to `/` redirects to `/en`.
+
+### What gets translated where
+
+| Layer | Tool | Lives in |
+|---|---|---|
+| Developer-authored UI strings (Header, Footer, Hero, Features, About copy, etc.) | [`next-intl`](https://next-intl.dev) | `frontend/messages/{en,pt,pl}.json` |
+| Blog posts | [`@tinloof/sanity-document-i18n`](https://www.npmjs.com/package/@tinloof/sanity-document-i18n) | Sanity Studio (one document per language, linked via `translation.metadata`) |
+| Sanity `page` documents (`/[...path]`) | Single-locale by design | Same English body served under any locale prefix |
+| `settings` singleton (site title, OG image) | Single-locale by design | Sanity (title falls back to `Metadata.siteTitle` from messages) |
+
+### Adding or removing a locale
+
+1. Edit `frontend/i18n/routing.ts` — add the locale code to `locales`.
+2. Add `frontend/messages/{newLocale}.json` (copy `en.json` and translate).
+3. Add a `LanguageSwitcher.<code>` translation key in every messages file (the locale's native name).
+4. In Studio, add the locale to `documentI18n({ locales: [...] })` in `studio/sanity.config.ts`.
+5. Re-run `pnpm typegen` from the repo root.
+
+### Translating sample posts
+
+The bundled `studio/sample-data.tar.gz` ships English-only posts. To make the demo trilingual:
+
+1. Run `pnpm --filter studio dev`, open Studio.
+2. Pick a post → click the **Português** / **Polski** badge in the language menu → fill `title`, `pathname` (use a localised slug like `/posts/ola-mundo`), `excerpt`, `content` → publish.
+3. Repeat for 2–3 sample posts so the listing has content per locale.
+4. Optional: regenerate the bundled tarball so a fresh clone gets the translated content:
+
+```bash
+cd studio
+pnpm sanity dataset export production --overwrite
+mv production.tar.gz sample-data.tar.gz
+```
+
+### How the language switcher behaves
+
+Clicking a locale in the header dropdown:
+
+- On `/[locale]`, `/[locale]/about`, `/[locale]/posts`, `/[locale]/[...path]` — swaps the locale prefix on the same pathname.
+- On `/[locale]/posts/[slug]` — looks up the translated document's pathname and navigates there. If no translation exists, falls back to `/[locale]/posts`.
+
+Listing pages (`/[locale]/posts`) only show posts that have a translation for that locale. Missing-translation posts are never silently fallen back to English.
+
 ## Project Structure
 
 ```
@@ -154,5 +200,10 @@ wrangler secret put SANITY_API_READ_TOKEN
 - [Next.js documentation](https://nextjs.org/docs)
 - [OpenNext for Cloudflare](https://opennext.js.org/cloudflare)
 - [Cloudflare Workers docs](https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/)
-- [GitHub repository](https://github.com/pedroduke/sanity-nextjs-cloudflare-starter)
+- [next-intl docs](https://next-intl.dev/docs/getting-started/app-router)
+- [Sanity Localizations docs](https://www.sanity.io/docs/studio/localization)
+- [Sanity Localizations docs](https://www.sanity.io/docs/studio/localization)
+- [Tinloof Sanity Document i18n docs](https://www.npmjs.com/package/@tinloof/sanity-document-i18n)
+- [Sanity Document Internationalization docs](https://www.npmjs.com/package/@sanity/document-internationalization)
+- [GitHub repository](https://github.com/pedroduke/sanity-nextjs-cloudflare-i18n-starter)
 - [Join the Sanity Community](https://slack.sanity.io)
