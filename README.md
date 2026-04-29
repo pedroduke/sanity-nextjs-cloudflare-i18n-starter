@@ -2,7 +2,7 @@
 
 A production-ready website starter combining [Next.js](https://nextjs.org/) 16, [Sanity](https://www.sanity.io/) CMS with Visual Editing and built-in internationalization support, and deployment to [Cloudflare Workers](https://workers.cloudflare.com/) via [OpenNext](https://opennext.js.org/cloudflare).
 
-![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](/preview.png)
+![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](/preview1.png)
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/pedroduke/sanity-nextjs-cloudflare-i18n-starter)
 
