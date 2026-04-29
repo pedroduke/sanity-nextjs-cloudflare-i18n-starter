@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 import { sanityFetch } from '@/sanity/lib/live'
 import { morePostsQuery, allPostsQuery } from '@/sanity/lib/queries'
@@ -14,23 +14,25 @@ const Post = ({ post }: { post: MorePostsQueryResult[number] }) => {
     <article
       data-sanity={dataAttr({ id: _id, type: 'post', path: 'title' }).toString()}
       key={_id}
-      className="border border-gray-600 rounded-md p-6 bg-[#1e2030] flex flex-col justify-between transition-colors hover:border-gray-500 hover:bg-[#252837] relative"
+      className="relative bg-white border border-gray-200 rounded-lg p-6 flex flex-col gap-4 transition-colors hover:border-gray-300"
     >
-      <Link className="hover:text-brand underline transition-colors" href={pathname ?? '#'}>
-        <span className="absolute inset-0 z-10" />
+      <Link className="absolute inset-0 z-10" href={pathname ?? '#'}>
+        <span className="sr-only">Read {title}</span>
       </Link>
-      <div>
-        <h3 className="text-lg font-semibold text-gray-50 mb-3">{title}</h3>
 
-        <p className="line-clamp-3 text-sm leading-6 text-gray-400 max-w-[70ch]">{excerpt}</p>
-      </div>
-      <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-600">
-        {author && author.firstName && author.lastName && (
-          <div className="flex items-center">
-            <Avatar person={author} small={true} />
-          </div>
+      <h3 className="text-lg font-semibold text-gray-950 mb-0 leading-snug">{title}</h3>
+
+      {excerpt && (
+        <p className="line-clamp-3 text-sm leading-6 text-gray-700">{excerpt}</p>
+      )}
+
+      <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-200">
+        {author && author.firstName && author.lastName ? (
+          <Avatar person={author} small />
+        ) : (
+          <span />
         )}
-        <time className="text-gray-500 text-xs font-mono tabular-nums" dateTime={date}>
+        <time className="font-mono text-xs text-gray-600 tabular-nums" dateTime={date}>
           <DateComponent dateString={date} />
         </time>
       </div>
@@ -39,15 +41,21 @@ const Post = ({ post }: { post: MorePostsQueryResult[number] }) => {
 }
 
 const Posts = ({ children }: { children: React.ReactNode }) => (
-  <div>
-    <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">{children}</div>
-  </div>
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">{children}</div>
 )
 
-export const MorePosts = async ({ skip, limit }: { skip: string; limit: number }) => {
+export const MorePosts = async ({
+  locale,
+  skip,
+  limit,
+}: {
+  locale: string
+  skip: string
+  limit: number
+}) => {
   const { data } = await sanityFetch({
     query: morePostsQuery,
-    params: { skip, limit },
+    params: { locale, skip, limit },
   })
 
   if (!data || data.length === 0) {
@@ -56,19 +64,23 @@ export const MorePosts = async ({ skip, limit }: { skip: string; limit: number }
 
   return (
     <Posts>
-      {data?.map(post => (
+      {data.map((post) => (
         <Post key={post._id} post={post} />
       ))}
     </Posts>
   )
 }
 
-export const AllPosts = async () => {
-  const { data } = await sanityFetch({ query: allPostsQuery })
+export const AllPosts = async ({ locale }: { locale: string }) => {
+  const { data } = await sanityFetch({ query: allPostsQuery, params: { locale } })
+
+  if (!data || data.length === 0) {
+    return null
+  }
 
   return (
     <Posts>
-      {data.map(post => (
+      {data.map((post: AllPostsQueryResult[number]) => (
         <Post key={post._id} post={post} />
       ))}
     </Posts>

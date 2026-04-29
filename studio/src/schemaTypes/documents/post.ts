@@ -4,20 +4,46 @@ import { defineField, defineType } from 'sanity'
 import { definePathname } from '@tinloof/sanity-studio'
 import type { Post } from '../../../../frontend/sanity.types'
 
+const PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
+const DEFAULT_LOCALE_ID = 'en'
+
 export const post = defineType({
   name: 'post',
   title: 'Post',
   icon: DocumentTextIcon,
   type: 'document',
+  groups: [
+    { name: 'content', title: 'Content', default: true },
+    { name: 'settings', title: 'Settings' },
+  ],
   fields: [
+    defineField({
+      name: 'locale',
+      title: 'Language',
+      type: 'string',
+      group: 'settings',
+      readOnly: true,
+      initialValue: DEFAULT_LOCALE_ID,
+      options: {
+        list: [
+          { title: '🇬🇧 English', value: 'en' },
+          { title: '🇵🇹 Português', value: 'pt' },
+          { title: '🇵🇱 Polski', value: 'pl' },
+        ],
+      },
+    }),
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
+      group: 'content',
       validation: rule => rule.required(),
     }),
     definePathname({
       name: 'pathname',
+      group: 'settings',
+      description:
+        "The URL path for this post. The locale prefix (/en, /pt, /pl) is added automatically based on the post's language. Path must start with /posts/.",
       options: {
         source: (doc: any) => {
           if (!doc?.title) return ''
@@ -25,8 +51,20 @@ export const post = defineType({
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '')
-          return `${slug}`
+          return `posts/${slug}`
         },
+        i18n: {
+          enabled: true,
+          defaultLocaleId: DEFAULT_LOCALE_ID,
+          localizePathname: ({
+            pathname,
+            localeId,
+          }: {
+            pathname: string
+            localeId?: string
+          }) => `/${localeId || DEFAULT_LOCALE_ID}${pathname}`,
+        },
+        prefix: (doc: any) => `${PREVIEW_URL}/${doc.locale || DEFAULT_LOCALE_ID}`,
         autoNavigate: true,
       },
       validation: Rule =>
@@ -42,16 +80,19 @@ export const post = defineType({
       name: 'content',
       title: 'Content',
       type: 'blockContent',
+      group: 'content',
     }),
     defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
+      group: 'content',
     }),
     defineField({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',
+      group: 'content',
       options: {
         hotspot: true,
         aiAssist: {
@@ -80,12 +121,14 @@ export const post = defineType({
       name: 'date',
       title: 'Date',
       type: 'datetime',
+      group: 'content',
       initialValue: () => new Date().toISOString(),
     }),
     defineField({
       name: 'author',
       title: 'Author',
       type: 'reference',
+      group: 'content',
       to: [{ type: 'person' }],
     }),
   ],
@@ -96,14 +139,22 @@ export const post = defineType({
       authorLastName: 'author.lastName',
       date: 'date',
       media: 'coverImage',
+      locale: 'locale',
+      pathname: 'pathname',
     },
-    prepare({ title, media, authorFirstName, authorLastName, date }) {
-      const subtitles = [
+    prepare({ title, media, authorFirstName, authorLastName, date, locale, pathname }) {
+      const path = pathname?.current
+        ? `/${locale || DEFAULT_LOCALE_ID}${pathname.current}`
+        : ''
+      const meta = [
         authorFirstName && authorLastName && `by ${authorFirstName} ${authorLastName}`,
         date && `on ${format(parseISO(date), 'LLL d, yyyy')}`,
-      ].filter(Boolean)
+      ]
+        .filter(Boolean)
+        .join(' ')
+      const subtitle = [path, meta].filter(Boolean).join(' · ')
 
-      return { title, media, subtitle: subtitles.join(' ') }
+      return { title, media, subtitle }
     },
   },
 })

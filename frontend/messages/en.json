@@ -1,0 +1,191 @@
+{
+  "Metadata": {
+    "siteTitle": "sanity-nextjs-cloudflare-i18n-starter",
+    "siteDescription": "A scalable starter combining Sanity CMS, Next.js, and Cloudflare Workers — now shipping with first-class internationalisation.",
+    "homeTitle": "Home",
+    "aboutTitle": "About",
+    "postsTitle": "Posts"
+  },
+  "Header": {
+    "about": "About",
+    "github": "GitHub",
+    "deploy": "Deploy to Cloudflare"
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "pt": "Português",
+    "pl": "Polski"
+  },
+  "Footer": {
+    "tagline": "Sanity · Next.js · Cloudflare Workers · i18n. The stack that runs at the edge, in every language.",
+    "license": "Sanity + Next.js + Cloudflare Workers + i18n",
+    "viewSource": "View source",
+    "columns": {
+      "template": {
+        "title": "Template",
+        "github": "GitHub",
+        "documentation": "Documentation"
+      },
+      "stack": {
+        "title": "Stack",
+        "sanity": "Sanity.io",
+        "next": "Next.js",
+        "cloudflare": "Cloudflare Workers",
+        "opennext": "OpenNext"
+      },
+      "i18n": {
+        "title": "i18n",
+        "nextIntl": "next-intl Docs",
+        "sanityLocalization": "Sanity Localization docs",
+        "tinloofI18n": "Tinloof Sanity Document i18n Docs",
+        "sanityI18n": "Sanity Document Internationalization Docs"
+      }
+    }
+  },
+  "HeroSection": {
+    "tagChip": "Sanity · Next.js · Cloudflare · i18n",
+    "headingLine1": "A starter for Sanity, Next.js, Cloudflare.",
+    "headingLine2": "Now speaking every language.",
+    "body": "A scalable, multi-language starter that pairs Sanity CMS, Next.js, Cloudflare, and i18n with locale routing and translated content out of the box. Ship global sites in every language your users speak.",
+    "ctaPrimary": "Cloudflare docs",
+    "ctaSecondary": "View on GitHub"
+  },
+  "TechQuartet": {
+    "eyebrow": "// what's included",
+    "heading": "One template. Four pillars. Ready for every language.",
+    "items": {
+      "sanity": {
+        "title": "Sanity CMS",
+        "body": "Manage all your content in Sanity Studio. Localized documents, fieldsets per locale, and a schema you own."
+      },
+      "next": {
+        "title": "Next.js App Router",
+        "body": "React Server Components, TypeScript, and Tailwind. Native locale segments keep URLs clean."
+      },
+      "cloudflare": {
+        "title": "Cloudflare Workers",
+        "body": "Deploy globally with a single command Powered by OpenNext — no custom server configuration needed."
+      },
+      "i18n": {
+        "title": "i18n built-in",
+        "body": "Locale routing, translated Sanity content, and per-locale fallbacks. Launch in any language on day one."
+      }
+    }
+  },
+  "ArchSection": {
+    "eyebrow": "// how to use it",
+    "heading": "From first clone to every language, live.",
+    "body": "Four steps is all it takes. Clone, translate your content in Sanity Studio, build, and deploy with a single command.",
+    "steps": {
+      "01": {
+        "title": "Clone & configure",
+        "body": "Clone the repo and set your Sanity project ID, dataset, and the list of locales you want to support.",
+        "command": "git clone … && cp .env.example .env.local"
+      },
+      "02": {
+        "title": "Translate & localize",
+        "body": "Write content per locale in Sanity Studio. Route segments like /en, /pt, /pl map automatically to translated documents. Add as many locales as you need.",
+        "command": "en · pt · pl"
+      },
+      "03": {
+        "title": "Build your pages",
+        "body": "Open Sanity Studio and compose pages from reusable blocks. Editorial changes need zero code. Create components that fit your needs.",
+        "command": "pnpm dev"
+      },
+      "04": {
+        "title": "Deploy to Cloudflare",
+        "body": "Run pnpm run deploy and every locale goes live globally in seconds. No platform dashboard required.",
+        "command": "pnpm run deploy"
+      }
+    }
+  },
+  "FeaturesSection": {
+    "eyebrow": "// features",
+    "heading": "Built to be extended.",
+    "body": "Everything you need to grow a real product — including proper internationalization — without rewriting the starter.",
+    "items": {
+      "pageBuilder": {
+        "title": "Page builder",
+        "body": "Compose pages from reusable blocks defined in Sanity. Add new section types without touching layout code."
+      },
+      "nextIntl": {
+        "title": "next-intl",
+        "body": "App Router locale segments, typed message catalogues, pluralisation, date and number formatting, and first-class Server Components support."
+      },
+      "tinloofI18n": {
+        "title": "@tinloof/sanity-document-i18n",
+        "body": "The Sanity translation plugin used by this starter — a community fork of @sanity/document-internationalization — with field-level document translations, fallback locale logic, and per-locale preview in Studio."
+      },
+      "preview": {
+        "title": "Live preview & draft mode",
+        "body": "Edit in Sanity Studio and see changes reflected instantly in a preview of your live site before publishing."
+      },
+      "deploy": {
+        "title": "One-command deploy",
+        "body": "Run pnpm run deploy and every locale goes live globally. Wrangler CLI handles everything — no platform dashboard."
+      },
+      "typescript": {
+        "title": "TypeScript end-to-end",
+        "body": "Types generated from your Sanity schema flow through every locale and component. No mismatches between content and UI."
+      }
+    }
+  },
+  "PostsSection": {
+    "eyebrow": "// latest posts",
+    "title": "From the blog",
+    "body": "These blog posts are populated from your Sanity Studio.",
+    "allPosts": "All posts"
+  },
+  "AboutHero": {
+    "tagChip": "// about this template",
+    "heading": "Modern Web Development Powered by Sanity, Next.js, Cloudflare, and i18n",
+    "body": "A scalable starter combining Sanity CMS, Next.js, and Cloudflare Workers — now shipping with first-class internationalisation. Build multilingual, content-first web apps with locale-aware routing and translated Sanity documents out of the box."
+  },
+  "DocsSection": {
+    "eyebrow": "// documentation",
+    "heading": "Documentation for every part of the stack.",
+    "readDocs": "Read documentation",
+    "items": {
+      "cloudflare": {
+        "title": "Cloudflare Workers",
+        "body": "The runtime powering this template. Learn about Workers, Wrangler CLI, KV storage, R2, D1, and every Cloudflare primitive you can bind to your application."
+      },
+      "opennext": {
+        "title": "OpenNext",
+        "body": "The open-source adapter that compiles Next.js for deployment outside Vercel. This template uses the Cloudflare adapter to produce a Worker-compatible build that still supports i18n routing."
+      },
+      "sanity": {
+        "title": "Sanity",
+        "body": "The headless CMS at the core of this template. Covers schema design, GROQ queries, the page builder pattern, real-time live preview, and localised document fields for every language."
+      },
+      "next": {
+        "title": "Next.js",
+        "body": "The React framework behind the frontend. Learn about the App Router, Server Components, image optimisation, Tailwind CSS integration, TypeScript support, and locale-prefixed routing."
+      },
+      "nextIntl": {
+        "title": "next-intl",
+        "body": "The internationalisation layer of this template. Learn about locale-aware routing, message catalogues, pluralisation, date and number formatting, and streaming translations into Server Components."
+      },
+      "tinloof": {
+        "title": "@tinloof/sanity-document-i18n",
+        "body": "The Sanity translation plugin used by this starter — a community fork of @sanity/document-internationalization from Tinloof. Provides field-level document translations, fallback locale logic, and per-locale previews directly in Sanity Studio."
+      }
+    }
+  },
+  "AboutCTA": {
+    "eyebrow": "// get started",
+    "heading": "Clone it. Translate it. Ship it.",
+    "body": "Use the GitHub template, connect your Sanity project, pick your default locale, and deploy. The README walks through each step and how to add new languages and translating content via Sanity Studio.",
+    "ctaPrimary": "View on GitHub",
+    "ctaSecondary": "Read the README"
+  },
+  "PostsListing": {
+    "eyebrow": "// blog",
+    "title": "Latest posts",
+    "empty": "No posts yet."
+  },
+  "Post": {
+    "backToList": "← Back to posts"
+  }
+}

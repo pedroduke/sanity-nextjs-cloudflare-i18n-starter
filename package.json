@@ -1,9 +1,17 @@
 {
-  "name": "sanity-next-cloudflare-starter",
-  "description": "Sanity + Next.js + Cloudflare Starter Template: A scalable starter template combining Sanity CMS, Next.js, and Cloudflare for building high-performance, content-first web applications.",
+  "name": "sanity-next-cloudflare-i18n-starter",
+  "description": "Sanity + Next.js + Cloudflare + i18n Starter Template: A scalable starter template combining Sanity CMS, Next.js, and Cloudflare for building high-performance, content-first web applications.",
   "keywords": [
     "Sanity",
     "Next.js",
+    "i18n",
+    "internationalization",
+    "i18next",
+    "next-i18next",
+    "next-intl",
+    "next-translate",
+    "next-intl",
+    "localization",
     "OpenNext",
     "Cloudflare",
     "Headless CMS",
@@ -11,10 +19,7 @@
     "Live Content API (LCAPI)",
     "Real-time"
   ],
-  "homepage": "https://github.com/sanity-io/sanity-template-nextjs-clean#readme",
-  "bugs": {
-    "url": "https://github.com/sanity-io/sanity-template-nextjs-clean/issues"
-  },
+  "homepage": "https://github.com/pedroduke/sanity-nextjs-cloudflare-i18n-starter#readme",
   "workspaces": [
     "studio",
     "frontend"

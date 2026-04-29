@@ -1,0 +1,191 @@
+{
+  "Metadata": {
+    "siteTitle": "sanity-nextjs-cloudflare-i18n-starter",
+    "siteDescription": "Skalowalny starter łączący Sanity CMS, Next.js i Cloudflare Workers — teraz z pierwszorzędną obsługą internacjonalizacji.",
+    "homeTitle": "Start",
+    "aboutTitle": "O nas",
+    "postsTitle": "Wpisy"
+  },
+  "Header": {
+    "about": "O nas",
+    "github": "GitHub",
+    "deploy": "Wdróż na Cloudflare"
+  },
+  "LanguageSwitcher": {
+    "label": "Język",
+    "en": "English",
+    "pt": "Português",
+    "pl": "Polski"
+  },
+  "Footer": {
+    "tagline": "Sanity · Next.js · Cloudflare Workers · i18n. Stack działający na krawędzi sieci, w każdym języku.",
+    "license": "Sanity + Next.js + Cloudflare Workers + i18n",
+    "viewSource": "Zobacz źródło",
+    "columns": {
+      "template": {
+        "title": "Szablon",
+        "github": "GitHub",
+        "documentation": "Dokumentacja"
+      },
+      "stack": {
+        "title": "Stack",
+        "sanity": "Sanity.io",
+        "next": "Next.js",
+        "cloudflare": "Cloudflare Workers",
+        "opennext": "OpenNext"
+      },
+      "i18n": {
+        "title": "i18n",
+        "nextIntl": "Dokumentacja next-intl",
+        "sanityLocalization": "Dokumentacja Sanity Localization",
+        "tinloofI18n": "Dokumentacja Tinloof Sanity Document i18n",
+        "sanityI18n": "Dokumentacja Sanity Document Internationalization"
+      }
+    }
+  },
+  "HeroSection": {
+    "tagChip": "Sanity · Next.js · Cloudflare · i18n",
+    "headingLine1": "Starter dla Sanity, Next.js, Cloudflare.",
+    "headingLine2": "Teraz mówiący w każdym języku.",
+    "body": "Skalowalny, wielojęzyczny starter łączący Sanity CMS, Next.js, Cloudflare i i18n z routingiem opartym o język i przetłumaczoną treścią od razu po wyjęciu z pudełka. Wysyłaj globalne strony w każdym języku, którym posługują się Twoi czytelnicy.",
+    "ctaPrimary": "Dokumentacja Cloudflare",
+    "ctaSecondary": "Zobacz na GitHub"
+  },
+  "TechQuartet": {
+    "eyebrow": "// co zawiera",
+    "heading": "Jeden szablon. Cztery filary. Gotowy na każdy język.",
+    "items": {
+      "sanity": {
+        "title": "Sanity CMS",
+        "body": "Zarządzaj całą treścią w Sanity Studio. Zlokalizowane dokumenty, zestawy pól per język i schemat, który należy do Ciebie."
+      },
+      "next": {
+        "title": "Next.js App Router",
+        "body": "React Server Components, TypeScript i Tailwind. Natywne segmenty językowe utrzymują czyste URL-e."
+      },
+      "cloudflare": {
+        "title": "Cloudflare Workers",
+        "body": "Wdrażaj globalnie za pomocą jednego polecenia. Rozwiązanie oparte na technologii OpenNext — nie wymaga żadnej niestandardowej konfiguracji serwera."
+      },
+      "i18n": {
+        "title": "Wbudowane i18n",
+        "body": "Routing po języku, przetłumaczona treść Sanity i fallbacki per język. Uruchamiaj w dowolnym języku od pierwszego dnia."
+      }
+    }
+  },
+  "ArchSection": {
+    "eyebrow": "// jak używać",
+    "heading": "Od pierwszego klonu do każdego języka, na żywo.",
+    "body": "Cztery kroki to wszystko, czego potrzebujesz. Sklonuj, przetłumacz treść w Sanity Studio, zbuduj i wdroż jednym poleceniem.",
+    "steps": {
+      "01": {
+        "title": "Sklonuj i skonfiguruj",
+        "body": "Sklonuj repo i ustaw swoje Sanity project ID, dataset oraz listę języków, które chcesz wspierać.",
+        "command": "git clone … && cp .env.example .env.local"
+      },
+      "02": {
+        "title": "Przetłumacz i zlokalizuj",
+        "body": "Pisz treść per język w Sanity Studio. Segmenty trasy takie jak /en, /pt, /pl automatycznie mapują się do przetłumaczonych dokumentów. Dodaj tyle języków, ile potrzebujesz.",
+        "command": "en · pt · pl"
+      },
+      "03": {
+        "title": "Zbuduj swoje strony",
+        "body": "Otwórz Sanity Studio i komponuj strony z bloków wielokrotnego użytku. Zmiany redakcyjne nie wymagają kodu. Twórz komponenty, które pasują do Twoich potrzeb.",
+        "command": "pnpm dev"
+      },
+      "04": {
+        "title": "Wdróż na Cloudflare",
+        "body": "Uruchom pnpm run deploy i każdy język wchodzi do życia globalnie w sekundy. Bez dashboardu platformy.",
+        "command": "pnpm run deploy"
+      }
+    }
+  },
+  "FeaturesSection": {
+    "eyebrow": "// funkcje",
+    "heading": "Zbudowany do rozszerzania.",
+    "body": "Wszystko, czego potrzebujesz, aby rozwinąć prawdziwy produkt — w tym właściwą internacjonalizację — bez przepisywania startera.",
+    "items": {
+      "pageBuilder": {
+        "title": "Page builder",
+        "body": "Komponuj strony z bloków wielokrotnego użytku zdefiniowanych w Sanity. Dodawaj nowe typy sekcji bez dotykania kodu układu."
+      },
+      "nextIntl": {
+        "title": "next-intl",
+        "body": "Segmenty językowe App Router, typowane katalogi komunikatów, liczba mnoga, formatowanie dat i liczb oraz pierwszorzędne wsparcie dla Server Components."
+      },
+      "tinloofI18n": {
+        "title": "@tinloof/sanity-document-i18n",
+        "body": "Wtyczka tłumaczeń Sanity używana w tym starterze — społecznościowy fork @sanity/document-internationalization — z tłumaczeniami dokumentów na poziomie pól, logiką fallbacków i podglądem per język w Studio."
+      },
+      "preview": {
+        "title": "Podgląd na żywo i tryb roboczy",
+        "body": "Edytuj w Sanity Studio i widz zmiany od razu w podglądzie strony przed publikacją."
+      },
+      "deploy": {
+        "title": "Wdrożenie jednym poleceniem",
+        "body": "Uruchom pnpm run deploy i każdy język wchodzi do życia globalnie. CLI Wrangler obsługuje wszystko — bez dashboardu platformy."
+      },
+      "typescript": {
+        "title": "TypeScript od końca do końca",
+        "body": "Typy generowane z Twojego schematu Sanity przepływają przez każdy język i komponent. Bez niespójności między treścią a UI."
+      }
+    }
+  },
+  "PostsSection": {
+    "eyebrow": "// najnowsze wpisy",
+    "title": "Z bloga",
+    "body": "Te wpisy bloga są zasilane z Twojego Sanity Studio.",
+    "allPosts": "Wszystkie wpisy"
+  },
+  "AboutHero": {
+    "tagChip": "// o tym szablonie",
+    "heading": "Nowoczesny rozwój webowy oparty o Sanity, Next.js, Cloudflare i i18n",
+    "body": "Skalowalny starter łączący Sanity CMS, Next.js i Cloudflare Workers — teraz z pierwszorzędną internacjonalizacją. Buduj wielojęzyczne, content-first aplikacje webowe z routingiem po języku i przetłumaczonymi dokumentami Sanity od razu."
+  },
+  "DocsSection": {
+    "eyebrow": "// dokumentacja",
+    "heading": "Dokumentacja dla każdej części stacku.",
+    "readDocs": "Czytaj dokumentację",
+    "items": {
+      "cloudflare": {
+        "title": "Cloudflare Workers",
+        "body": "Runtime napędzający ten szablon. Poznaj Workers, Wrangler CLI, KV storage, R2, D1 i każdą prymitywę Cloudflare, do której możesz podpiąć aplikację."
+      },
+      "opennext": {
+        "title": "OpenNext",
+        "body": "Open-source'owy adapter, który kompiluje Next.js do wdrożeń poza Vercel. Ten szablon używa adaptera Cloudflare, aby wyprodukować build kompatybilny z Workerem nadal wspierający routing i18n."
+      },
+      "sanity": {
+        "title": "Sanity",
+        "body": "Headless CMS w centrum tego szablonu. Obejmuje projektowanie schematów, zapytania GROQ, wzorzec page buildera, podgląd na żywo w czasie rzeczywistym oraz zlokalizowane pola dokumentów dla każdego języka."
+      },
+      "next": {
+        "title": "Next.js",
+        "body": "Framework React stojący za frontendem. Poznaj App Router, Server Components, optymalizację obrazów, integrację z Tailwind CSS, wsparcie TypeScript i routing oparty o prefiks języka."
+      },
+      "nextIntl": {
+        "title": "next-intl",
+        "body": "Warstwa internacjonalizacji tego szablonu. Poznaj routing oparty o język, katalogi komunikatów, liczbę mnogą, formatowanie dat i liczb oraz strumieniowanie tłumaczeń do Server Components."
+      },
+      "tinloof": {
+        "title": "@tinloof/sanity-document-i18n",
+        "body": "Wtyczka tłumaczeń Sanity używana w tym starterze — społecznościowy fork @sanity/document-internationalization od Tinloof. Zapewnia tłumaczenia dokumentów na poziomie pól, logikę fallbacków i podgląd per język bezpośrednio w Sanity Studio."
+      }
+    }
+  },
+  "AboutCTA": {
+    "eyebrow": "// zacznij",
+    "heading": "Użyj szablonu. Przetłumacz. Wdróż.",
+    "body": "Użyj szablonu GitHub, podłącz swój projekt Sanity, wybierz domyślny język i wdroż. README przeprowadza przez każdy krok i jak dodać nowe języki i tłumaczenie treści przez Sanity Studio.",
+    "ctaPrimary": "Zobacz na GitHub",
+    "ctaSecondary": "Czytaj README"
+  },
+  "PostsListing": {
+    "eyebrow": "// blog",
+    "title": "Najnowsze wpisy",
+    "empty": "Brak wpisów."
+  },
+  "Post": {
+    "backToList": "← Powrót do wpisów"
+  }
+}

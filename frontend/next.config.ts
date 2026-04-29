@@ -1,5 +1,8 @@
 import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
+
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts')
 
 const nextConfig: NextConfig = {
   env: {
@@ -11,7 +14,7 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default withNextIntl(nextConfig)
 
 // Initialize OpenNext Cloudflare adapter for local development
 // This enables Cloudflare bindings during dev and optimizes integration

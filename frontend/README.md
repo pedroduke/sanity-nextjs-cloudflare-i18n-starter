@@ -2,7 +2,7 @@
 
 Next.js 16 App Router frontend, deployed to [Cloudflare Workers](https://workers.cloudflare.com/) via [OpenNext](https://opennext.js.org/cloudflare).
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/pedroduke/sanity-nextjs-cloudflare-starter)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/pedroduke/sanity-nextjs-cloudflare-i18n-starter)
 
 > **Note:** After clicking the deploy button, you still need to configure environment variables in your Cloudflare dashboard (see [Environment Variables](#environment-variables)).
 

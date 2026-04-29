@@ -1,61 +1,93 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next'
+import { headers } from 'next/headers'
 import { sanityFetch } from '@/sanity/lib/live'
 import { sitemapData } from '@/sanity/lib/queries'
-import { headers } from 'next/headers'
+import { routing, type Locale } from '@/i18n/routing'
 
-/**
- * This file creates a sitemap (sitemap.xml) for the application. Learn more about sitemaps in Next.js here: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
- * Be sure to update the `changeFrequency` and `priority` values to match your application's content.
- */
+const STATIC_PATHS = ['', '/about', '/posts'] as const
+
+function altsForPath(domain: string, path: string): Record<string, string> {
+  return Object.fromEntries(routing.locales.map((l) => [l, `${domain}/${l}${path}`]))
+}
+
+function isLocale(value: string | null | undefined): value is Locale {
+  return !!value && (routing.locales as readonly string[]).includes(value)
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const allPostsAndPages = await sanityFetch({
-    query: sitemapData,
-  })
   const headersList = await headers()
-  const sitemap: MetadataRoute.Sitemap = []
-  const domain: string = headersList.get('host') as string
-  sitemap.push({
-    url: domain as string,
-    lastModified: new Date(),
-    priority: 1,
-    changeFrequency: 'monthly',
+  const host = headersList.get('host') ?? 'localhost:3000'
+  const protocol = host.startsWith('localhost') ? 'http' : 'https'
+  const domain = `${protocol}://${host}`
+
+  const { data } = await sanityFetch({
+    query: sitemapData,
+    perspective: 'published',
+    stega: false,
   })
 
-  if (allPostsAndPages != null && allPostsAndPages.data.length != 0) {
-    let priority: number
-    let changeFrequency:
-      | 'monthly'
-      | 'always'
-      | 'hourly'
-      | 'daily'
-      | 'weekly'
-      | 'yearly'
-      | 'never'
-      | undefined
-    let url: string
+  const now = new Date()
 
-    for (const p of allPostsAndPages.data) {
-      switch (p._type) {
-        case 'page':
-          priority = 0.8
-          changeFrequency = 'monthly'
-          url = `${domain}${p.pathname}`
-          break
-        case 'post':
-          priority = 0.5
-          changeFrequency = 'never'
-          url = `${domain}${p.pathname}`
-          break
-      }
-      sitemap.push({
-        lastModified: p._updatedAt || new Date(),
-        priority,
-        changeFrequency,
-        url,
-      })
-    }
+  const staticEntries: MetadataRoute.Sitemap = routing.locales.flatMap((locale) =>
+    STATIC_PATHS.map((path) => ({
+      url: `${domain}/${locale}${path}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: path === '' ? 1.0 : 0.8,
+      alternates: { languages: altsForPath(domain, path) },
+    }))
+  )
+
+  const pages = data?.pages ?? []
+  const pageEntries: MetadataRoute.Sitemap = pages.flatMap((page) =>
+    routing.locales.map((locale) => ({
+      url: `${domain}/${locale}${page.pathname ?? ''}`,
+      lastModified: page._updatedAt ? new Date(page._updatedAt) : now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+      alternates: {
+        languages: Object.fromEntries(
+          routing.locales.map((l) => [l, `${domain}/${l}${page.pathname ?? ''}`])
+        ),
+      },
+    }))
+  )
+
+  // Plugin's translation.metadata document type isn't part of the static schema, so
+  // typegen narrows post.translations to null. The GROQ result is a real array at
+  // runtime — we cast to access it.
+  type RawPost = {
+    _type: 'post'
+    locale: string | null
+    pathname: string
+    _updatedAt: string
+    translations: { locale: string | null; pathname: string | null }[] | null
   }
+  const posts: RawPost[] = (data?.posts ?? []) as RawPost[]
 
-  return sitemap
+  const postEntries: MetadataRoute.Sitemap = posts
+    .filter((post) => isLocale(post.locale) && post.pathname)
+    .map((post) => {
+      const ownLocale = post.locale as Locale
+      const ownPathname = post.pathname as string
+      const siblings = (post.translations ?? [])
+        .filter((tr): tr is { locale: string; pathname: string } => !!tr?.locale && !!tr?.pathname)
+        .filter((tr) => isLocale(tr.locale))
+      const allTranslations = [
+        { locale: ownLocale, pathname: ownPathname },
+        ...siblings.map((tr) => ({ locale: tr.locale as Locale, pathname: tr.pathname })),
+      ]
+      const languages = Object.fromEntries(
+        allTranslations.map((tr) => [tr.locale, `${domain}/${tr.locale}${tr.pathname}`])
+      )
+      return {
+        url: `${domain}/${ownLocale}${ownPathname}`,
+        lastModified: post._updatedAt ? new Date(post._updatedAt) : now,
+        changeFrequency: 'never' as const,
+        priority: 0.5,
+        alternates: { languages },
+      }
+    })
+
+  return [...staticEntries, ...pageEntries, ...postEntries]
 }
